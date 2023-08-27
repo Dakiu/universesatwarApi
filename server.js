@@ -6,6 +6,20 @@ const port = process.env.PORT ?? 3000;
 
 app.use(express.json())
 
+mongoose.connect('mongodb+srv://admin:9fr2pJfgbNHJ1NVG@cluster0.xbfx86x.mongodb.net/node-api?retryWrites=true&w=majority')
+.then(()=> {
+    console.log('connected to mongoDB')
+    app.listen(port, ()=>{
+        console.log(`node running port ${port}`);
+    });
+    
+}).catch((error)=>{
+    console.log(error)
+});
+
+
+
+
 //routes
 app.get('/', (req, res) =>{
     res.send('jjj');
@@ -18,24 +32,13 @@ app.post('/usuario', async (req, res) =>{
    try{
     const usuario = await Usuario.create(req.body)
     res.status(200).json(usuario);
-    res.send('ok')
+    //res.send('ok')
 
    }catch(error){
         console.log(error.message);
-        req.status(500).json({message:error.message})
+        req.status(500).json({message: error.message})
 
    }
 
-});
-
-mongoose.connect('mongodb+srv://admin:9fr2pJfgbNHJ1NVG@cluster0.xbfx86x.mongodb.net/node-api?retryWrites=true&w=majority')
-.then(()=> {
-    console.log('connected to mongoDB')
-    app.listen(port, ()=>{
-        console.log(`node running port ${port}`);
-    });
-    
-}).catch(()=>{
-    console.log(error)
 });
 
