@@ -22,7 +22,7 @@ mongoose.connect('mongodb+srv://admin:9fr2pJfgbNHJ1NVG@cluster0.xbfx86x.mongodb.
 
 //routes
 app.get('/', (req, res) =>{
-    res.send('jjj');
+    res.status(200).send('jjj');
 });
 
 app.post('/usuario', async (req, res) =>{
@@ -36,7 +36,8 @@ app.post('/usuario', async (req, res) =>{
 
    }catch(error){
         console.log(error.message);
-        req.status(500).json({message: error.message})
+        req.status(500).send('fallo');
+        //req.status(500).json({message: error.message})
 
    }
 
