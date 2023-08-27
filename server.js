@@ -36,7 +36,7 @@ app.post('/usuario', async (req, res) =>{
 
    }catch(error){
         console.log(error.message);
-        req.status(500).send('fallo');
+        res.status(500).send('fallo');
         //req.status(500).json({message: error.message})
 
    }
