@@ -10,7 +10,7 @@ app.use(express.json())
 app.get('/', (req, res) =>{
     res.status(200).send('jjj');
 });
-
+//crea Usuario
 app.post('/usuario', async (req, res) =>{
 
    try{
@@ -23,9 +23,29 @@ app.post('/usuario', async (req, res) =>{
         res.status(500).json({message: error.message})
 
    }
-
-
 });
+
+//get Data
+
+app.get('/usuarios', async(req, res) =>{
+    try{
+        const usuarios = await Usuario.find({});
+        res.status(200).json(usuarios);
+    }catch(error){
+        res.status(500).json({message: error.message});
+    }
+})
+
+app.get('/usuarios/:id', async (req, res) =>{
+
+    try{
+        const {id} = req.params;
+        const usuario = await Usuario.findById(id)
+        res.status(200).json(usuario);
+    }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 
 mongoose.connect('mongodb+srv://admin:9fr2pJfgbNHJ1NVG@cluster0.xbfx86x.mongodb.net/node-api?retryWrites=true&w=majority')
 .then(()=> {
