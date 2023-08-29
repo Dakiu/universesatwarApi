@@ -25,7 +25,7 @@ app.post('/usuario', async (req, res) =>{
    }
 });
 
-//get Data
+//get Usuarios
 
 app.get('/usuarios', async(req, res) =>{
     try{
@@ -43,6 +43,38 @@ app.get('/usuarios/:id', async (req, res) =>{
         const usuario = await Usuario.findById(id)
         res.status(200).json(usuario);
     }catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
+
+//update
+app.put('/usuarios/:id', async(req, res) => {
+    try {
+        const {id} = req.params;
+        const usuario = await Usuario.findByIdAndUpdate(id, req.body);
+        // we cannot find any usuario in database
+        if(!usuario){
+            return res.status(404).json({message: `cannot find any usuario with ID ${id}`})
+        }
+        const updatedUsuario = await Usuario.findById(id);
+        res.status(200).json(updatedUsuario);
+        
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+//delete
+app.delete('/usuario/:id', async(req, res) =>{
+    try {
+        const {id} = req.params;
+        const usuario = await Usuario.findByIdAndDelete(id);
+        if(!usuario){
+            return res.status(404).json({message: `cannot find any usuario with ID ${id}`})
+        }
+        res.status(200).json(usuario);
+        
+    } catch (error) {
         res.status(500).json({message: error.message})
     }
 })
