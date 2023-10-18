@@ -39,8 +39,9 @@ app.get('/usuarios', async(req, res) =>{
 //get Usuario Password
 app.get('/usuario/', async(req, res) =>{
     try{
-        const usuarios = await Usuario.find({name: req.params.nombre, password: req.params.password});
-        res.status(200).json(usuarios);
+        
+        const usuario = await Usuario.findOne({name: req.params.nombre, password: req.params.password});
+        res.status(200).json(usuario);
     }catch(error){
         res.status(500).json({message: error.message});
     }
