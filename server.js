@@ -41,7 +41,7 @@ app.get('/usuario/', async(req, res) =>{
     try{
         
         //const usuario = await Usuario.findOne({name: req.params.nombre, password: req.params.password});
-        const usuario = await Usuario.findOne({name: req.params.nombre, password: req.params.password});
+        const usuario = await Usuario.findOne({name: 'sultae'});
         if (usuario!=null){
             res.status(200).json(usuario);
         }else{
