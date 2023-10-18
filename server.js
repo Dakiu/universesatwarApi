@@ -45,7 +45,7 @@ app.get('/usuario/', async(req, res) =>{
         if (usuario!=null){
             res.status(200).json(usuario);
         }else{
-            req.status(404).json({message: "no se encuentra"});
+            res.status(404).json({message: "no se encuentra"});
         }
         console.log(usuario);
         console.log(req.params)
